@@ -49,10 +49,27 @@
 <body>
 
   <img
-    src="QR1@144x.webp"
-    alt="Ubermensch Challenge"
-    class="full-bleed"
-  >
+  src="QR1@144x.webp"
+  alt="Ubermensch Challenge"
+  class="full-bleed"
+  onclick="openAndCopy()"
+  style="cursor: pointer;"
+>
+
+<script>
+  function openAndCopy() {
+    const url = "https://kittiphatramp-golf.github.io/UbermenschChallenge.TH/";
+
+    // คัดลอกลิงก์
+    navigator.clipboard.writeText(url).then(() => {
+      alert("คัดลอกลิงก์แล้ว");
+    });
+
+    // เปิดลิงก์
+    window.open(url, "_blank");
+  }
+</script>
+
 
   <div class="content">
     <div class="text">
