@@ -52,21 +52,17 @@
   src="QR1@144x.webp"
   alt="Ubermensch Challenge"
   class="full-bleed"
-  onclick="openAndCopy()"
+  onclick="copyHashtag()"
   style="cursor: pointer;"
 >
 
 <script>
-  function openAndCopy() {
+  function copyHashtag() {
     const text = "#ÜbermenschChallenge #ÜbermenschChallenge_BANGKOK";
 
-    // คัดลอกลิงก์
-    navigator.clipboard.writeText(url).then(() => {
-      alert("คัดลอกแล้ว");
+    navigator.clipboard.writeText(text).then(() => {
+      alert("คัดลอกแฮชแท็กแล้ว");
     });
-
-    // เปิดลิงก์
-    window.open(url, "_blank");
   }
 </script>
 
