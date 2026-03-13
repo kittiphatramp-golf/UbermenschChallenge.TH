@@ -1,82 +1,84 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>Ubermensch Challenge</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Happy Anniversary</title>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      background: linear-gradient(180deg, #000000, #071f21);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #ffffff;
-    }
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
 
-    /* กลางจอแนวตั้ง */
-    body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+.container{
+    background:rgba(0,0,0,0.25);
+    padding:40px;
+    border-radius:20px;
+}
 
-    /* ภาพชนขอบ ไม่ครอป */
-    .full-bleed {
-      width: 100vw;
-      height: auto;
-      display: block;
-    }
+h1{
+    font-size:48px;
+}
 
-    .content {
-      padding: 16px;
-      text-align: center;
-    }
+button{
+    padding:15px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    background:white;
+    color:#ff4d6d;
+    cursor:pointer;
+}
 
-    .text {
-      font-size: 16px;
-      line-height: 1.7;
-      background: rgba(255,255,255,0.08);
-      padding: 14px;
-      border-radius: 12px;
-      user-select: text;
-      margin-top: 16px;
-    }
-  </style>
+button:hover{
+    transform:scale(1.1);
+}
+</style>
 </head>
 
 <body>
 
-  <img
-  src="QR1@144x.webp"
-  alt="Ubermensch Challenge"
-  class="full-bleed"
-  onclick="copyAndOpen()"
-  style="cursor: pointer;"
->
+<div class="container">
+<h1>Happy Anniversary ❤️</h1>
+
+<p>ขอบคุณที่อยู่ด้วยกันมาตลอด</p>
+
+<p id="timer"></p>
+
+<button onclick="showLove()">กดเพื่อดูเซอร์ไพรส์</button>
+
+<p id="message"></p>
+</div>
 
 <script>
-  function copyAndOpen() {
-    const text = "#ÜbermenschChallenge #ÜbermenschChallenge_BANGKOK";
-    const url = "https://kittiphatramp-golf.github.io/UbermenschChallenge.TH/";
 
-    navigator.clipboard.writeText(text).then(() => {
-      alert("คัดลอกแฮชแท็กแล้ว");
-    });
+let startDate = new Date("2024-03-13");
 
-    window.open(url, "_blank");
-  }
+function updateTime(){
+    let now = new Date();
+    let diff = now - startDate;
+
+    let days = Math.floor(diff / (1000*60*60*24));
+
+    document.getElementById("timer").innerHTML =
+    "เราอยู่ด้วยกันมาแล้ว " + days + " วัน 💕";
+}
+
+setInterval(updateTime,1000);
+
+function showLove(){
+    document.getElementById("message").innerHTML =
+    "ไม่ว่าจะผ่านไปกี่ปี เค้าก็ยังรักเธอเหมือนวันแรก ❤️";
+}
+
 </script>
-
-
-
-  <div class="content">
-    <div class="text">
-      #ÜbermenschChallenge<br>
-      #ÜbermenschChallenge_BANGKOK
-    </div>
-  </div>
 
 </body>
 </html>
