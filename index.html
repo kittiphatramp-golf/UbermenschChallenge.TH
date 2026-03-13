@@ -2,80 +2,223 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>Happy Anniversary</title>
+<title>Secret</title>
 
 <style>
+
 body{
-    margin:0;
-    font-family:Arial;
-    background:linear-gradient(135deg,#ff758c,#ff7eb3);
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    color:white;
+margin:0;
+overflow:hidden;
+background:black;
+font-family:monospace;
 }
 
-.container{
-    background:rgba(0,0,0,0.25);
-    padding:40px;
-    border-radius:20px;
+/* matrix canvas */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
 }
 
-h1{
-    font-size:48px;
+/* vignette effect */
+.overlay{
+position:fixed;
+width:100%;
+height:100%;
+background:radial-gradient(circle,rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 80%);
 }
 
-button{
-    padding:15px 30px;
-    font-size:18px;
-    border:none;
-    border-radius:10px;
-    background:white;
-    color:#ff4d6d;
-    cursor:pointer;
+/* popup timer */
+
+.timerBox{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:rgba(0,0,0,0.7);
+padding:40px;
+border-radius:20px;
+color:white;
+text-align:center;
+box-shadow:0 0 20px red;
 }
 
-button:hover{
-    transform:scale(1.1);
+#timer{
+font-size:28px;
+margin-top:10px;
 }
+
+/* gift */
+
+.gift{
+margin-top:20px;
+font-size:60px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.gift:hover{
+transform:scale(1.2);
+}
+
+/* heart photo container */
+
+.heart{
+position:absolute;
+width:300px;
+height:260px;
+left:50%;
+top:60%;
+transform:translateX(-50%);
+display:none;
+}
+
+.heart img{
+position:absolute;
+width:60px;
+height:60px;
+border-radius:10px;
+object-fit:cover;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="container">
-<h1>Happy Anniversary ❤️</h1>
+<canvas id="matrix"></canvas>
 
-<p>ขอบคุณที่อยู่ด้วยกันมาตลอด</p>
+<div class="overlay"></div>
 
-<p id="timer"></p>
+<div class="timerBox">
 
-<button onclick="showLove()">กดเพื่อดูเซอร์ไพรส์</button>
+<h2>TIME TOGETHER</h2>
 
-<p id="message"></p>
+<div id="timer"></div>
+
+<div class="gift" onclick="openGift()">🎁</div>
+
 </div>
+
+<div class="heart" id="heartContainer"></div>
+
 
 <script>
 
-let startDate = new Date("2024-03-13");
+/* MATRIX EFFECT */
 
-function updateTime(){
-    let now = new Date();
-    let diff = now - startDate;
+const canvas=document.getElementById("matrix")
+const ctx=canvas.getContext("2d")
 
-    let days = Math.floor(diff / (1000*60*60*24));
+canvas.height=window.innerHeight
+canvas.width=window.innerWidth
 
-    document.getElementById("timer").innerHTML =
-    "เราอยู่ด้วยกันมาแล้ว " + days + " วัน 💕";
+const letters="01"
+const fontSize=16
+const columns=canvas.width/fontSize
+
+const drops=[]
+
+for(let x=0;x<columns;x++)
+drops[x]=1
+
+function draw(){
+
+ctx.fillStyle="rgba(0,0,0,0.05)"
+ctx.fillRect(0,0,canvas.width,canvas.height)
+
+ctx.fillStyle="#ff2a2a"
+ctx.font=fontSize+"px monospace"
+
+for(let i=0;i<drops.length;i++){
+
+const text=letters[Math.floor(Math.random()*letters.length)]
+
+ctx.fillText(text,i*fontSize,drops[i]*fontSize)
+
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0
+
+drops[i]++
+
 }
 
-setInterval(updateTime,1000);
+}
 
-function showLove(){
-    document.getElementById("message").innerHTML =
-    "ไม่ว่าจะผ่านไปกี่ปี เค้าก็ยังรักเธอเหมือนวันแรก ❤️";
+setInterval(draw,33)
+
+
+/* TIMER */
+
+const startDate=new Date("2026-02-14T00:00:00")
+
+function updateTimer(){
+
+const now=new Date()
+
+const diff=now-startDate
+
+const days=Math.floor(diff/(1000*60*60*24))
+const hours=Math.floor((diff/(1000*60*60))%24)
+const mins=Math.floor((diff/(1000*60))%60)
+const secs=Math.floor((diff/1000)%60)
+
+document.getElementById("timer").innerHTML=
+days+" days "+hours+" hrs "+mins+" min "+secs+" sec"
+
+}
+
+setInterval(updateTimer,1000)
+
+
+
+/* GIFT OPEN */
+
+function openGift(){
+
+const container=document.getElementById("heartContainer")
+
+container.style.display="block"
+
+const images=[
+
+"img1.jpg",
+"img2.jpg",
+"img3.jpg",
+"img4.jpg",
+"img5.jpg",
+"img6.jpg",
+"img7.jpg",
+"img8.jpg",
+"img9.jpg",
+"img10.jpg"
+
+]
+
+const positions=[
+
+[120,20],[160,40],[80,40],
+[200,80],[40,80],
+[160,120],[80,120],
+[120,160],
+[100,190],[140,190]
+
+]
+
+images.forEach((src,i)=>{
+
+const img=document.createElement("img")
+
+img.src=src
+
+img.style.left=positions[i][0]+"px"
+img.style.top=positions[i][1]+"px"
+
+container.appendChild(img)
+
+})
+
 }
 
 </script>
